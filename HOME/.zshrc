@@ -10,6 +10,15 @@ fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 # ----- end for homebrew ------------------------------------------------------
 
+# ----- begin for zsh completion settings -------------------------------------
+# zsh-abbrで定義したエイリアスをコマンド名として補完候補に含める
+zstyle ':completion:*' completer _complete _expand_alias _correct _approximate
+# 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
+zstyle ':completion:*:default' menu select=1
+# ----- end for zsh completion settings ---------------------------------------
+
 # ----- begin for zinit -------------------------------------------------------
 # install zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -45,9 +54,11 @@ zinit light olets/zsh-abbr
 # zsh-abbr のログを抑制
 typeset -g ABBR_QUIET=1
 # Homebrew Upgrade & Brewfile Update
-abbr -S brew-upgrade=$'if brew upgrade --greedy; then
+abbr -S abu=$'if brew upgrade --greedy; then
     brew bundle dump --force --describe --file=$HOME/Brewfile
 fi'
+alias abu='' # 補完用
+
 # ----- end for zsh-abbr -----------------------------------------------------
 
 # ----- begin for mise --------------------------------------------------------
@@ -62,19 +73,3 @@ if [[ -n "$SSH_CONNECTION" ]]; then
 fi
 export GPG_TTY=$(tty)
 # ----- end for git -----------------------------------------------------------
-
-# ----- begin for zsh ---------------------------------------------------------
-# 補完のキャッシュファイル(~/.zcompdump)が1日以内の場合にキャッシュを使い、
-# そうでない場合に再生成することで、シェルの起動を高速化します。
-autoload -Uz compinit
-if [[ -n ~/.zcompdump(#qN.m-1) ]]; then
-    compinit -C -i
-else
-    compinit -i
-fi
-
-# 補完で小文字でも大文字にマッチさせる
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# 補完候補を一覧表示したとき、Tabや矢印で選択できるようにする
-zstyle ':completion:*:default' menu select=1
-# ----- end for zsh -----------------------------------------------------------
