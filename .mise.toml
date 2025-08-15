@@ -1,10 +1,10 @@
-[tasks.run-create_symlinks]
+[tasks.create_symlinks]
 description = "run tools/create_symlinks.zsh"
 run = '''
 zsh ./tools/create_symlinks.zsh
 '''
 
-[tasks.run-recreate-compinit]
+[tasks.recreate-compinit]
 description = "run tools/recreate_compinit.zsh"
 run = '''
 zsh ./tools/recreate_compinit.zsh
