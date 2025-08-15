@@ -9,3 +9,9 @@ description = "run tools/recreate_compinit.zsh"
 run = '''
 zsh ./tools/recreate_compinit.zsh
 '''
+
+[tasks.create-env]
+description = "create .env from .env.1password"
+run = '''
+op inject -i .env.1password -o .env
+'''
