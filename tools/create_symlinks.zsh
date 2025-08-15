@@ -5,6 +5,7 @@
 # ファイルは `../HOME` ディレクトリに存在する必要があります。
 # (スペースや改行で区切られたリスト)
 FILES_TO_LINK=(
+.ssh/config
 .p10k.zsh
 .zprofile
 .zshrc
@@ -45,6 +46,13 @@ for filename in "${FILES_TO_LINK[@]}"; do
         backup_file="${target_file}.backup.$(date +%Y%m%d_%H%M%S)"
         echo "  -> 既存のファイルをバックアップします: ${backup_file}"
         mv "${target_file}" "${backup_file}"
+    fi
+
+    # リンク先の親ディレクトリが存在しない場合は作成する
+    target_parent_dir=$(dirname "${target_file}")
+    if [ ! -d "${target_parent_dir}" ]; then
+        echo "  -> リンク先の親ディレクトリを作成します: ${target_parent_dir}"
+        mkdir -p "${target_parent_dir}"
     fi
 
     # シンボリックリンクを作成（-fオプションで既存のリンクは上書き）
