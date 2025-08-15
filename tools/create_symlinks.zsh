@@ -4,10 +4,11 @@
 # シンボリックリンクを作成したいファイル名をこのリストに追加してください。
 # ファイルは `../HOME` ディレクトリに存在する必要があります。
 # (スペースや改行で区切られたリスト)
-FILES_TO_LINK="
+FILES_TO_LINK=(
 .zshrc
 .p10k.zsh
-"
+Brewfile
+)
 # --- ここまで ---
 
 # スクリプトが失敗したら直ちに終了する
@@ -25,7 +26,7 @@ echo "リンク先ディレクトリ: ${TARGET_DIR}"
 echo ""
 
 # FILES_TO_LINKで定義された各ファイルをループ処理
-for filename in $FILES_TO_LINK; do
+for filename in "${FILES_TO_LINK[@]}"; do
     # リンク元とリンク先のフルパスを組み立てる
     source_file="${SOURCE_DIR}/${filename}"
     target_file="${TARGET_DIR}/${filename}"
