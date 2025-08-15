@@ -46,7 +46,19 @@ zinit light zsh-users/zsh-syntax-highlighting
 # ↑↓キーで部分一致検索
 zinit light zsh-users/zsh-history-substring-search
 
+# 動的省略形管理で、短縮入力を展開・補完
+zinit light olets/zsh-abbr
+
 # ----- end for zinit ---------------------------------------------------------
+
+# ----- begin for zsh-abbr ----------------------------------------------------
+# zsh-abbr のログを抑制
+typeset -g ABBR_QUIET=1
+# Homebrew Upgrade & Brewfile Update
+abbr -S brew-upgrade=$'if brew upgrade --greedy; then
+    brew bundle dump --force --describe --file=$HOME/Brewfile
+fi'
+# ----- end for zsh-abbr -----------------------------------------------------
 
 # ----- begin for mise --------------------------------------------------------
 eval "$(/opt/homebrew/bin/mise activate zsh)"
