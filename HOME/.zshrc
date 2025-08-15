@@ -6,18 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # ----- begin for homebrew ----------------------------------------------------
-typeset -U path PATH
-path=(
-    /opt/homebrew/bin(N-/)
-    /opt/homebrew/sbin(N-/)
-    /usr/bin
-    /usr/sbin
-    /bin
-    /sbin
-    /usr/local/bin(N-/)
-    /usr/local/sbin(N-/)
-    /Library/Apple/usr/bin
-)
+# homebrew向けのパス設定
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # ----- end for homebrew ------------------------------------------------------
 
 # ----- begin for zinit -------------------------------------------------------

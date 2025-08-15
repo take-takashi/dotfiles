@@ -5,8 +5,9 @@
 # ファイルは `../HOME` ディレクトリに存在する必要があります。
 # (スペースや改行で区切られたリスト)
 FILES_TO_LINK=(
-.zshrc
 .p10k.zsh
+.zprofile
+.zshrc
 Brewfile
 )
 # --- ここまで ---
