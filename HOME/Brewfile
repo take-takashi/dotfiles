@@ -16,12 +16,8 @@ brew "imagemagick"
 brew "mise"
 # Open source computer vision library
 brew "opencv"
-# Execute binaries from Python packages in isolated environments
-brew "pipx"
 # Paste PNG into files
 brew "pngpaste"
-# Python version management
-brew "pyenv"
 # Command-line tool for Stripe
 brew "stripe-cli"
 # Easiest, most secure way to use WireGuard and 2FA
@@ -34,14 +30,10 @@ brew "take-takashi/face-mosaic/face-mosaic"
 cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
-# Chromium based browser
-cask "arc"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Voice and text chat software
 cask "discord"
-# App to build and share containerised applications and microservices
-cask "docker-desktop"
 # Run Stable Diffusion locally
 cask "draw-things"
 cask "font-hackgen"
@@ -66,12 +58,8 @@ cask "raycast"
 cask "steam"
 # Open-source code editor
 cask "visual-studio-code"
-# Web browser with built-in email client focusing on customization and control
-cask "vivaldi"
 # Remote desktop application focusing on security
 cask "vnc-viewer"
-# Rust-based terminal
-cask "warp"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
 vscode "alefragnani.bookmarks"
@@ -86,6 +74,7 @@ vscode "davidanson.vscode-markdownlint"
 vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "gizak.shortcuts"
+vscode "google.gemini-cli-vscode-ide-companion"
 vscode "google.geminicodeassist"
 vscode "gruntfuggly.todo-tree"
 vscode "ms-ceintl.vscode-language-pack-ja"
