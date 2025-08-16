@@ -16,6 +16,8 @@ brew "imagemagick"
 brew "mas"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
 # Open source computer vision library
 brew "opencv"
 # Paste PNG into files
