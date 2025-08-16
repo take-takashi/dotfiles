@@ -5,6 +5,7 @@
 # ファイルは `../HOME` ディレクトリに存在する必要があります。
 # (スペースや改行で区切られたリスト)
 FILES_TO_LINK=(
+.config/nvim
 .gemini/GEMINI.md
 .gemini/settings.json
 .ssh/config
