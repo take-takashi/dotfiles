@@ -25,6 +25,11 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- add your plugins here
+    -- telescope
+    {
+      "nvim-telescope/telescope.nvim",
+      dependencies = { "nvim-lua/plenary.nvim" },
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -32,3 +37,72 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+-- Smart Command+P: メニューを表示しつつ f/c で即実行できる Telescope ピッカー
+local function smart_command_p()
+  local builtin = require("telescope.builtin")
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local conf = require("telescope.config").values
+
+  local entries = {
+    { key = "f", name = "Files (find_files)", run = builtin.find_files },
+    { key = "c", name = "Commands (:commands)", run = builtin.commands },
+    -- 必要に応じてここに追加できます:
+    -- { key = "g", name = "Live Grep (ripgrep)", run = builtin.live_grep },
+    -- { key = "b", name = "Buffers", run = builtin.buffers },
+  }
+
+  local opts = {
+    prompt_title = "Smart Command+P",
+    finder = finders.new_table({
+      results = entries,
+      entry_maker = function(item)
+        return {
+          value = item,
+          display = string.format("[%s] %s", item.key, item.name),
+          ordinal = item.key .. " " .. item.name, -- 並び替え用
+        }
+      end,
+    }),
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr, map)
+      local function run_selected()
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        if selection and selection.value and selection.value.run then
+          selection.value.run()
+        end
+      end
+
+      -- Enter で現在選択を実行
+      actions.select_default:replace(run_selected)
+
+      -- f / c を押したら即実行（選択を無視してダイレクトに実行）
+      map("i", "f", function()
+        actions.close(prompt_bufnr)
+        builtin.find_files()
+      end)
+      map("n", "f", function()
+        actions.close(prompt_bufnr)
+        builtin.find_files()
+      end)
+      map("i", "c", function()
+        actions.close(prompt_bufnr)
+        builtin.commands()
+      end)
+      map("n", "c", function()
+        actions.close(prompt_bufnr)
+        builtin.commands()
+      end)
+
+      return true
+    end,
+  }
+
+  pickers.new({}, opts):find()
+end
+
+vim.keymap.set("n", "<C-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
