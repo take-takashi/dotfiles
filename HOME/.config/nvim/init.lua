@@ -105,4 +105,6 @@ local function smart_command_p()
   pickers.new({}, opts):find()
 end
 
-vim.keymap.set("n", "<C-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+vim.keymap.set("n", "<D-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+-- iTerm2はCmd+Pが印刷になってしまうのでF13もコマンドパレットモードとする
+vim.keymap.set("n", "<F13>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
