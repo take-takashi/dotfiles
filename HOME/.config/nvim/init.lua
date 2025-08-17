@@ -21,15 +21,16 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Setup lazy.nvim
+-- Setup lazy.nvim (single call)
 require("lazy").setup({
   spec = {
-    -- add your plugins here
-    -- telescope
+    -- inline plugins here
     {
       "nvim-telescope/telescope.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
     },
+    -- and also import additional specs from lua/plugins/**
+    { import = "plugins" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
@@ -108,3 +109,4 @@ end
 vim.keymap.set("n", "<D-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
 -- iTerm2はCmd+Pが印刷になってしまうのでF13もコマンドパレットモードとする
 vim.keymap.set("n", "<F13>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+vim.keymap.set("n", "<C-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
