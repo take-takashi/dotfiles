@@ -21,6 +21,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- システムクリップボードを使用
+vim.opt.clipboard:append({"unnamedplus"})
+
 -- Setup lazy.nvim (single call)
 require("lazy").setup({
   spec = {
@@ -106,7 +109,8 @@ local function smart_command_p()
   pickers.new({}, opts):find()
 end
 
-vim.keymap.set("n", "<D-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+vim.keymap.set("n", "<M-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
 -- iTerm2はCmd+Pが印刷になってしまうのでF13もコマンドパレットモードとする
 vim.keymap.set("n", "<F13>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
 vim.keymap.set("n", "<C-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+vim.keymap.set("n", "<M-e>", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTreeをトグルする" })
