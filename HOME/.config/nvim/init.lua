@@ -23,6 +23,10 @@ vim.g.maplocalleader = "\\"
 
 -- システムクリップボードを使用
 vim.opt.clipboard:append({"unnamedplus"})
+-- 行番号を表示
+vim.opt.number = true
+-- カーソルラインを表示
+vim.opt.cursorline = true
 
 -- Setup lazy.nvim (single call)
 require("lazy").setup({
@@ -109,7 +113,21 @@ local function smart_command_p()
   pickers.new({}, opts):find()
 end
 
+-- # TODO: 整理
+-- vim.keymap.set("n", "<M-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+-- vim.keymap.set("n", "<M-e>", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTreeをトグルする" })
+-- vim.keymap.set("n", "<M-j>", "<cmd>ToggleTerm<CR>", { desc = "ToggleTermをトグルする" })
+vim.keymap.set("n", "<Leader>pp", "<cmd>Telescope<CR>", { desc = "Telescopeを開く" })
+vim.keymap.set("n", "<Leader>ps", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
+--vim.keymap.set("n", "<Leader>pb", , { desc = "Smart Command+P (Telescope menu)" })
+vim.keymap.set("n", "<Leader>ee", "<cmd>NvimTreeSmartOpen<CR>", { desc = "NvimTreeをトグルする" })
+vim.keymap.set("n", "<Leader>jj", "<cmd>ToggleTerm<CR>", { desc = "ToggleTermをトグルする" })
 
-vim.keymap.set("n", "<M-p>", smart_command_p, { desc = "Smart Command+P (Telescope menu)" })
-vim.keymap.set("n", "<M-e>", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTreeをトグルする" })
-vim.keymap.set("n", "<M-j>", "<cmd>ToggleTerm<CR>", { desc = "ToggleTermをトグルする" })
+-- normalのキーマップ割り当て
+local global_normal_mappings = {
+  { "<C-h>", "<Cmd>BufferLineCyclePrev<CR>", desc = "バッファーラインを前に移動" },
+  { "<C-l>", "<Cmd>BufferLineCycleNext<CR>", desc = "バッファーラインを次に移動" },
+}
+for _, map in ipairs(global_normal_mappings) do
+  vim.keymap.set("n", map[1], map[2], { desc = map[3] })
+end
