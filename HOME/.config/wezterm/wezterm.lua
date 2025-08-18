@@ -13,7 +13,7 @@ config.initial_rows = 48
 
 config.font_size = 14
 config.use_ime = true
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.85
 config.macos_window_background_blur = 20
 config.font = wezterm.font 'HackGen Console NF'
 
