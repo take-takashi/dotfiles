@@ -6,6 +6,7 @@
 # (スペースや改行で区切られたリスト)
 FILES_TO_LINK=(
 .config/nvim
+.config/wezterm
 .gemini/GEMINI.md
 .gemini/settings.json
 .ssh/config
@@ -44,10 +45,10 @@ for filename in "${FILES_TO_LINK[@]}"; do
 
     echo "処理中: ${filename}"
 
-    # リンク先が既に存在し、それがシンボリックリンクでない場合（つまり通常のファイルの場合）はバックアップを作成
-    if [ -f "${target_file}" ] && [ ! -L "${target_file}" ]; then
+    # リンク先が既に存在し、それがシンボリックリンクでない場合はバックアップを作成
+    if [ -e "${target_file}" ] && [ ! -L "${target_file}" ]; then
         backup_file="${target_file}.backup.$(date +%Y%m%d_%H%M%S)"
-        echo "  -> 既存のファイルをバックアップします: ${backup_file}"
+        echo "  -> 既存のファイルまたはディレクトリをバックアップします: ${backup_file}"
         mv "${target_file}" "${backup_file}"
     fi
 
