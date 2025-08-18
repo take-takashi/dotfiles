@@ -3,20 +3,26 @@ local wk = require("which-key")
 -- which-key v3+ spec (list-based). Groups and mappings under <leader>
 wk.add({
   -- Basic
-  { "<leader>b", group = "Basic" },
-  { "<leader>bw", ":w<CR>", desc = "保存 (write)" },
-  { "<leader>bq", ":q<CR>", desc = "終了 (quit)" },
-  { "<leader>bx", ":x<CR>", desc = "保存して終了" },
-  { "<leader>be", ":e<CR>", desc = "再読み込み/開く (edit)" },
+  -- { "<leader>b", group = "Basic" },
+  -- { "<leader>bw", ":w<CR>", desc = "保存 (write)" },
+  -- { "<leader>bq", ":q<CR>", desc = "終了 (quit)" },
+  -- { "<leader>bx", ":x<CR>", desc = "保存して終了" },
+  -- { "<leader>be", ":e<CR>", desc = "再読み込み/開く (edit)" },
 
   -- Move
-  { "<leader>m", group = "Move" },
-  { "<leader>mg", "gg",  desc = "ファイル先頭へ" },
-  { "<leader>mG", "G",   desc = "ファイル末尾へ" },
-  { "<leader>m0", "0",   desc = "行頭へ" },
-  { "<leader>m$", "$",   desc = "行末へ" },
-  { "<leader>mu", "<C-u>", desc = "半画面上へ" },
-  { "<leader>md", "<C-d>", desc = "半画面下へ" },
+  -- { "<leader>m", group = "Move" },
+  -- { "<leader>mg", "gg",  desc = "ファイル先頭へ" },
+  -- { "<leader>mG", "G",   desc = "ファイル末尾へ" },
+  -- { "<leader>m0", "0",   desc = "行頭へ" },
+  -- { "<leader>m$", "$",   desc = "行末へ" },
+  -- { "<leader>mu", "<C-u>", desc = "半画面上へ" },
+  -- { "<leader>md", "<C-d>", desc = "半画面下へ" },
+
+  -- Plugin: bufferline
+  { "<leader>b", group = "bufferline" },
+  { "<leader>bb", "<Cmd>BufferLinePick<CR>", desc = "バッファーラインを選択" },
+  { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "バッファーラインを前に移動" },
+  { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "バッファーラインを次に移動" },
 
   -- Edit
   { "<leader>e", group = "Edit" },
