@@ -45,8 +45,13 @@ for filename in "${FILES_TO_LINK[@]}"; do
 
     echo "処理中: ${filename}"
 
-    # リンク先が既に存在し、それがシンボリックリンクでない場合はバックアップを作成
-    if [ -e "${target_file}" ] && [ ! -L "${target_file}" ]; then
+    # リンク先が既に存在する場合の処理
+    if [ -L "${target_file}" ]; then
+        # 既にシンボリックリンクの場合は削除する
+        echo "  -> 既存のシンボリックリンクを削除します: ${target_file}"
+        rm "${target_file}"
+    elif [ -e "${target_file}" ]; then
+        # シンボリックリンク以外のファイルやディレクトリが存在する場合
         backup_file="${target_file}.backup.$(date +%Y%m%d_%H%M%S)"
         echo "  -> 既存のファイルまたはディレクトリをバックアップします: ${backup_file}"
         mv "${target_file}" "${backup_file}"
@@ -59,9 +64,9 @@ for filename in "${FILES_TO_LINK[@]}"; do
         mkdir -p "${target_parent_dir}"
     fi
 
-    # シンボリックリンクを作成（-fオプションで既存のリンクは上書き）
+    # シンボリックリンクを作成
     echo "  -> シンボリックリンクを作成します: ${source_file} -> ${target_file}"
-    ln -sf "${source_file}" "${target_file}"
+    ln -s "${source_file}" "${target_file}"
 done
 
 echo ""
