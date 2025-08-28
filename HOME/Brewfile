@@ -1,9 +1,11 @@
 tap "homebrew/cask-fonts"
 tap "take-takashi/face-mosaic"
-# Package compiler and linker metadata toolkit
-brew "pkgconf"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Distributed revision control system
