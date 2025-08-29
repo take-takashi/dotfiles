@@ -38,6 +38,8 @@ cask "1password"
 cask "1password-cli"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
+# Create and run Linux containers using lightweight virtual machines
+cask "container"
 # Voice and text chat software
 cask "discord"
 # Run Stable Diffusion locally
