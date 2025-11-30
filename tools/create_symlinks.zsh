@@ -5,6 +5,8 @@
 # ファイルは `../HOME` ディレクトリに存在する必要があります。
 # (スペースや改行で区切られたリスト)
 FILES_TO_LINK=(
+.codex/AGENTS.md
+.codex/config.toml
 .config/nvim
 .config/wezterm
 .gemini/GEMINI.md
