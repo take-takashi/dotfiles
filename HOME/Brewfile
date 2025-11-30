@@ -6,6 +6,8 @@ brew "openssl@3"
 brew "awscli"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
+# Create and run Linux containers using lightweight virtual machines
+brew "container"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Distributed revision control system
@@ -36,6 +38,8 @@ brew "take-takashi/face-mosaic/face-mosaic"
 cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
+# Image editing and design software
+cask "affinity"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Create and run Linux containers using lightweight virtual machines
@@ -95,13 +99,13 @@ vscode "bierner.markdown-footnotes"
 vscode "bierner.markdown-mermaid"
 vscode "bierner.markdown-preview-github-styles"
 vscode "bierner.markdown-yaml-preamble"
-vscode "davidanson.vscode-markdownlint"
 vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "gizak.shortcuts"
 vscode "google.gemini-cli-vscode-ide-companion"
 vscode "google.geminicodeassist"
 vscode "gruntfuggly.todo-tree"
+vscode "hverlin.mise-vscode"
 vscode "ms-ceintl.vscode-language-pack-ja"
 vscode "oderwat.indent-rainbow"
 vscode "openai.chatgpt"
