@@ -1,0 +1,44 @@
+# Git の現在ブランチ名を返す。detached HEAD や git 管理外では何も返さない。
+git_current_branch() {
+  git symbolic-ref --quiet --short HEAD 2>/dev/null
+}
+
+# Git の現在ブランチ名に未コミット変更があれば * を付けて返す。
+# git 管理外や detached HEAD では何も返さない。
+git_branch_with_dirty() {
+  local branch
+
+  branch="$(git_current_branch)" || return 1
+  [[ -n "$branch" ]] || return 1
+
+  git diff --no-ext-diff --quiet --ignore-submodules=dirty --cached 2>/dev/null &&
+    git diff --no-ext-diff --quiet --ignore-submodules=dirty 2>/dev/null
+
+  if [[ $? -eq 0 ]]; then
+    printf '%s\n' "$branch"
+  else
+    printf '%s*\n' "$branch"
+  fi
+}
+
+# tmux 利用時は pane title を git 情報で更新する。
+# 上の関数が何も返さない場合は空文字にしてフォールバックする。
+update_tmux_pane_title() {
+  [[ -n "$TMUX" ]] || return 0
+
+  local branch_title=""
+  branch_title="$(git_branch_with_dirty 2>/dev/null)" || branch_title=""
+
+  if [[ -n "$branch_title" ]]; then
+    tmux select-pane -T " $branch_title" >/dev/null 2>&1
+  else
+    tmux select-pane -T "" >/dev/null 2>&1
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd update_tmux_pane_title
+add-zsh-hook precmd update_tmux_pane_title
+
+# シェル起動直後の pane title も更新する。
+update_tmux_pane_title
