@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conventional Commit JA"
+  short_description: "Conventional Commitsを日本語で作成"
+  default_prompt: "Use $commit-conventional-ja to create a Japanese Conventional Commit message from the current diff and commit it."
