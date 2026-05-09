@@ -1,0 +1,24 @@
+theme = "Catppuccin Frappe"
+
+font-family = "PlemolJp Console NF"
+font-style = Regular
+font-thicken = true
+
+# 背景を透過
+background-opacity = 0.90
+# ブラー（すりガラス効果）
+background-blur-radius = 15
+
+# 行間を少し広げてモダンにする
+adjust-cell-height = 10%
+
+# タイトルバーのファイルアイコンを消す
+macos-titlebar-proxy-icon = hidden
+# タイトルバーにタブを表示
+macos-titlebar-style = tabs
+
+shell-integration = detect
+
+# key bindings
+keybind = cmd+enter=unbind
+keybind = alt+enter=unbind
