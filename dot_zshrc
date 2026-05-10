@@ -1,13 +1,11 @@
-# OPENSPEC:START
-# OpenSpec shell completions configuration
-fpath=("/Users/takashi/.zsh/completions" $fpath)
-autoload -Uz compinit
-compinit
-# OPENSPEC:END
-
 # ----- begin for homebrew ----------------------------------------------------
 # homebrew向けのパス設定
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Homebrewが配布する補完定義を読み込む。miseの補完はusage-cli経由でtaskも補完する。
+if [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+    fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+fi
 # ----- end for homebrew ------------------------------------------------------
 
 # ----- begin for zsh completion settings -------------------------------------
