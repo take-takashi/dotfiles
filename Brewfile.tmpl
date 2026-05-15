@@ -1,0 +1,131 @@
+{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
+tap "homebrew/cask-fonts"
+
+# 共通ツール
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# Manage your dotfiles across multiple diverse machines, securely
+brew "chezmoi"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Mac App Store command-line interface
+brew "mas"
+# Tool for working with usage-spec CLIs
+brew "usage"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Incremental parsing library
+brew "tree-sitter"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Paste PNG into files
+brew "pngpaste"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Terminal multiplexer
+brew "tmux"
+# Parser generator tool
+brew "tree-sitter-cli"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Fonts
+cask "font-hackgen"
+cask "font-hackgen-nerd"
+cask "font-plemol-jp"
+cask "font-plemol-jp-hs"
+cask "font-plemol-jp-nf"
+cask "font-symbols-only-nerd-font"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# App to write, plan, collaborate and get organised
+cask "notion"
+# Control your tools with a few keystrokes
+cask "raycast"
+# Open-source code editor
+cask "visual-studio-code"
+
+{{- if eq $machineProfile "personal" }}
+
+# 個人PC向けアプリ
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Create and run Linux containers using lightweight virtual machines
+brew "container"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Open source computer vision library
+brew "opencv"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# SVG rendering tool and library
+brew "resvg"
+# Easiest, most secure way to use WireGuard and 2FA
+brew "tailscale"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
+# Voice and text chat software
+cask "discord"
+# Run Stable Diffusion locally
+cask "draw-things"
+# Audio player
+cask "foobar2000"
+# Video game digital distribution service
+cask "steam"
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
+# Command-line interface for 1Password
+cask "1password-cli"
+# Image editing and design software
+cask "affinity"
+# Multi-track audio editor and recorder
+cask "audacity"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
+# Web browser
+cask "google-chrome"
+# Desktop automation application
+cask "hammerspoon"
+# Open-source software for live streaming and screen recording
+cask "obs"
+# Imaging utility to install operating systems to a microSD card
+cask "raspberry-pi-imager"
+# Tool to reverse the direction of scrolling
+cask "scroll-reverser"
+# Remote desktop application focusing on security
+cask "vnc-viewer"
+
+# 個人PC向け Mac App Store アプリ
+mas "DaVinci Resolve", id: 571213070
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Steam Link", id: 1246969117
+mas "Valheim", id: 1554294918
+mas "Keynote", id: 409183694
+mas "Kindle", id: 302584613
+mas "LINE", id: 539883307
+mas "Notion Web Clipper", id: 1559269364
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Surfingkeys", id: 1609752330
+mas "Tampermonkey", id: 6738342400
+mas "Xcode", id: 497799835
+{{- end }}
+
+{{- if eq $machineProfile "work" }}
+
+# 会社PC向けアプリ
+{{- end }}

@@ -58,7 +58,7 @@ zinit cdreplay -q
 typeset -g ABBR_QUIET=1
 # Homebrew Upgrade & Brewfile Update
 abbr -S abu=$'if brew upgrade --greedy; then
-    brew bundle dump --force --describe --file=$HOME/Brewfile
+    brew bundle dump --force --describe --no-vscode --file=$HOME/Brewfile.dump
 fi'
 alias abu='' # 補完用
 

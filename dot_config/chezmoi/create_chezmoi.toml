@@ -1,0 +1,6 @@
+[data]
+# machine_profile に指定できる値:
+# - minimal: 個人PCと会社PCの両方に入れる共通ツール
+# - personal: minimal + 個人PC向けアプリ
+# - work: minimal + 会社PC向けアプリ
+machine_profile = "minimal"
