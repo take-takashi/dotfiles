@@ -1,0 +1,68 @@
+#!/bin/sh
+set -eu
+
+{{- if eq .chezmoi.os "darwin" }}
+target=/etc/pam.d/sudo_local
+template=/etc/pam.d/sudo_local.template
+
+# tmux内でTouch IDを表示できるよう、pam_reattach.soをpam_tid.soより前に読み込む。
+# pam-reattachが未インストールの環境では、この行は追加しない。
+reattach_module=/opt/homebrew/lib/pam/pam_reattach.so
+reattach_rule="auth       optional       $reattach_module"
+reattach_rule_pattern='^[[:space:]]*auth[[:space:]]+optional[[:space:]]+.*pam_reattach\.so([[:space:]]|$)'
+
+# sudoでTouch ID認証を有効化するPAM設定。
+touchid_rule='auth       sufficient     pam_tid.so'
+touchid_rule_pattern='^[[:space:]]*auth[[:space:]]+sufficient[[:space:]]+pam_tid\.so([[:space:]]|$)'
+
+# 必要な設定がすでに入っている場合は、root権限を要求せず何もしない。
+if [ -f "$target" ] \
+	&& grep -Eq "$touchid_rule_pattern" "$target" \
+	&& { [ ! -f "$reattach_module" ] || grep -Eq "$reattach_rule_pattern" "$target"; }; then
+	exit 0
+fi
+
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+
+# 既存のsudo_localがあればそれをベースにする。
+# なければmacOS標準のテンプレートからTouch ID行を有効化して作る。
+if [ -f "$target" ]; then
+	cat "$target" > "$tmp"
+	if ! grep -Eq "$touchid_rule_pattern" "$tmp"; then
+		printf '\n%s\n' "$touchid_rule" >> "$tmp"
+	fi
+elif [ -f "$template" ]; then
+	sed -E 's/^#[[:space:]]*(auth[[:space:]]+sufficient[[:space:]]+pam_tid\.so.*)$/\1/' "$template" > "$tmp"
+	if ! grep -Eq "$touchid_rule_pattern" "$tmp"; then
+		printf '\n%s\n' "$touchid_rule" >> "$tmp"
+	fi
+else
+	printf '%s\n' "$touchid_rule" > "$tmp"
+fi
+
+# pam-reattachが入っている場合だけ、Touch ID行より前に追加する。
+# 先にreattachしないと、tmux内のsudoでTouch IDダイアログが出ないことがある。
+if [ -f "$reattach_module" ] && ! grep -Eq "$reattach_rule_pattern" "$tmp"; then
+	{
+		printf '%s\n' "$reattach_rule"
+		cat "$tmp"
+	} > "$tmp.reattach"
+	mv "$tmp.reattach" "$tmp"
+fi
+
+# /etc/pam.d配下はroot権限が必要。
+# 一部のtmux paneではmacOS側の制限で書き込みに失敗するため、その場合は通常シェルでの実行を案内する。
+if ! sudo sh -c 'cat "$1" > "$2" && chown root:wheel "$2" && chmod 0644 "$2"' sh "$tmp" "$target"; then
+	cat >&2 <<'EOF'
+/etc/pam.d/sudo_local を更新できませんでした。
+tmux paneではなく、GhosttyやTerminal.appなどの通常シェルで次のコマンドを実行してください。
+
+  cd ~/.local/share/chezmoi
+  chezmoi apply
+EOF
+	exit 1
+fi
+{{- else }}
+exit 0
+{{- end }}
