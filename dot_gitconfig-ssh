@@ -1,0 +1,10 @@
+# iPadなどからSSHログインしてコミットする場合、1PasswordのSSH署名を使えないため、
+# personal環境ではこの設定でGit署名をOpenPGPに切り替える。
+[gpg]
+  format = openpgp
+
+[user]
+  signingkey = 196D9924A228FCC3
+
+[commit]
+  gpgsign = true

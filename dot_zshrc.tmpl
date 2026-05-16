@@ -1,3 +1,4 @@
+{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
 # ----- begin for homebrew ----------------------------------------------------
 # homebrew向けのパス設定
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -69,10 +70,12 @@ eval "$(/opt/homebrew/bin/mise activate zsh)"
 # ----- end for mise ----------------------------------------------------------
 
 # ----- begin for git ---------------------------------------------------------
-# SSH接続時のみ ~/.gitconfig-ssh の内容を追加で読み込む（上書き）
+{{ if eq $machineProfile "personal" -}}
+# iPadなどからSSHログインしてコミットする場合、1PasswordのSSH署名を使えないため、
+# personal環境ではGit署名をOpenPGP用の ~/.gitconfig-ssh に切り替える。
 if [[ -n "$SSH_CONNECTION" ]]; then
-    # gitコマンド実行時のみ、追加設定ファイルをエイリアスで設定する
     alias git='git -c "include.path=~/.gitconfig-ssh"'
 fi
+{{ end -}}
 export GPG_TTY=$(tty)
 # ----- end for git -----------------------------------------------------------

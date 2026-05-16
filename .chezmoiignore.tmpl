@@ -1,0 +1,4 @@
+{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
+{{ if ne $machineProfile "personal" -}}
+.gitconfig-ssh
+{{ end -}}
