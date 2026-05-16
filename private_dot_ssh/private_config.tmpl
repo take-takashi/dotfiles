@@ -1,0 +1,4 @@
+# 1PasswordのSSH agentを使って、GitHubなどのSSH認証を行う。
+# personal環境以外では .chezmoiignore.tmpl で生成対象から外す。
+Host *
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
