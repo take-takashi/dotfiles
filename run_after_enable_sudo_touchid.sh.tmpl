@@ -6,8 +6,20 @@ target=/etc/pam.d/sudo_local
 template=/etc/pam.d/sudo_local.template
 
 # tmux内でTouch IDを表示できるよう、pam_reattach.soをpam_tid.soより前に読み込む。
-# pam-reattachが未インストールの環境では、この行は追加しない。
-reattach_module=/opt/homebrew/lib/pam/pam_reattach.so
+# pam-reattachが未インストールならpam_tid.soだけ設定し、次回以降のapplyで再確認する。
+reattach_module=
+if command -v brew >/dev/null 2>&1 && brew --prefix pam-reattach >/dev/null 2>&1; then
+	reattach_module="$(brew --prefix pam-reattach)/lib/pam/pam_reattach.so"
+else
+	cat >&2 <<'EOF'
+pam-reattach が未インストールのため、tmux内sudoのTouch ID対応はまだ完了していません。
+Brewfileを適用した後、もう一度 chezmoi apply を実行するとpam_reattach.soを追加します。
+
+  brew bundle --file ~/Brewfile
+  chezmoi apply
+EOF
+fi
+
 reattach_rule="auth       optional       $reattach_module"
 reattach_rule_pattern='^[[:space:]]*auth[[:space:]]+optional[[:space:]]+.*pam_reattach\.so([[:space:]]|$)'
 
@@ -18,7 +30,7 @@ touchid_rule_pattern='^[[:space:]]*auth[[:space:]]+sufficient[[:space:]]+pam_tid
 # 必要な設定がすでに入っている場合は、root権限を要求せず何もしない。
 if [ -f "$target" ] \
 	&& grep -Eq "$touchid_rule_pattern" "$target" \
-	&& { [ ! -f "$reattach_module" ] || grep -Eq "$reattach_rule_pattern" "$target"; }; then
+	&& { [ -z "$reattach_module" ] || grep -Eq "$reattach_rule_pattern" "$target"; }; then
 	exit 0
 fi
 
@@ -43,7 +55,7 @@ fi
 
 # pam-reattachが入っている場合だけ、Touch ID行より前に追加する。
 # 先にreattachしないと、tmux内のsudoでTouch IDダイアログが出ないことがある。
-if [ -f "$reattach_module" ] && ! grep -Eq "$reattach_rule_pattern" "$tmp"; then
+if [ -n "$reattach_module" ] && [ -f "$reattach_module" ] && ! grep -Eq "$reattach_rule_pattern" "$tmp"; then
 	{
 		printf '%s\n' "$reattach_rule"
 		cat "$tmp"
