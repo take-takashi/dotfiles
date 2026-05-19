@@ -41,6 +41,9 @@ items:
       - name: List buffers
         key: '#'
         command: list-buffers
+      - name: Links
+        key: l
+        command: switch-client -T prefix \; send-keys -K C-h
   - separator: true
   - name: +Windows
     key: w
