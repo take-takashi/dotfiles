@@ -1,0 +1,8 @@
+# This file is local-only. Fill values on each machine.
+#
+# [env]
+# MISE_WORK_PROXY_SSID = "SOME-LAN"
+# MISE_WORK_PROXY_URL = "http://username:password@url:port"
+# MISE_WORK_PROXY_PAC_URL = "http://url.co.jp/proxy.pac"
+# MISE_WORK_PROXY_WIFI_DEVICE = "en0"
+# MISE_WORK_PROXY_NETWORK_SERVICE = "Wi-Fi"

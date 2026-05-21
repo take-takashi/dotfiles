@@ -66,7 +66,18 @@ alias abu='' # 補完用
 # ----- end for zsh-abbr -----------------------------------------------------
 
 # ----- begin for mise --------------------------------------------------------
+# MISE_ENVは、~/.config/mise/config.<MISE_ENV>.tomlを読むため。
+# よって、config.toml + config.local.toml + config.<MISE_ENV>.toml全部読む。
+export MISE_ENV="{{ $machineProfile }}"
 eval "$(/opt/homebrew/bin/mise activate zsh)"
+{{ if eq $machineProfile "work" -}}
+proxy() {
+    PROXY_SYNC_AUTO=0
+    source ~/.proxy.sh
+    unset PROXY_SYNC_AUTO
+    proxy-sync "$@"
+}
+{{ end -}}
 # ----- end for mise ----------------------------------------------------------
 
 # ----- begin for git ---------------------------------------------------------

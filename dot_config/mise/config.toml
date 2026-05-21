@@ -1,0 +1,16 @@
+[tool_alias.node.versions]
+lts = "24"
+
+[tools]
+node = "lts"
+"npm:@openai/codex" = { version = "latest", package_manager = "npm", dependencies = ["node"] }
+
+[settings]
+# 該当ツールの慣用ファイルを見ない
+# .node-versionや.python-versionなど
+idiomatic_version_file_enable_tools = []
+
+# config files with these prefixes will be trusted by default
+trusted_config_paths = [
+    '~/github','~/fork'
+]

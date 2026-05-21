@@ -3,3 +3,6 @@
 .gitconfig-ssh
 .ssh/config
 {{ end -}}
+{{ if ne $machineProfile "work" -}}
+.proxy.sh
+{{ end -}}
