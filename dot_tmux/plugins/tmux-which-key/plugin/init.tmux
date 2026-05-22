@@ -31,7 +31,10 @@ set -g @wk_menu_copy \
 'Copy "c" copy-mode \
 "List buffers" "#" list-buffers \
 Links "l" "switch-client -T prefix \; send-keys -K C-h" \
-Fuzzback "f" "switch-client -T prefix \; send-keys -K ?"'
+Fuzzback "f" "switch-client -T prefix \; send-keys -K ?" \
+"Files visible" "F" "switch-client -T prefix \; send-keys -K F" \
+"Files history" "H" "switch-client -T prefix \; send-keys -K H" \
+"Files window" "G" "switch-client -T prefix \; send-keys -K G"'
 
 set -g @wk_menu_layout \
 'Next "l" "nextl ; show-wk-menu #{@wk_menu_layout}" \

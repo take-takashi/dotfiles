@@ -47,6 +47,15 @@ items:
       - name: Fuzzback
         key: f
         command: switch-client -T prefix \; send-keys -K ?
+      - name: Files visible
+        key: F
+        command: switch-client -T prefix \; send-keys -K F
+      - name: Files history
+        key: H
+        command: switch-client -T prefix \; send-keys -K H
+      - name: Files window
+        key: G
+        command: switch-client -T prefix \; send-keys -K G
   - separator: true
   - name: +Windows
     key: w
