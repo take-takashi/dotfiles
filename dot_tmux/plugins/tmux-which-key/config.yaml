@@ -44,6 +44,9 @@ items:
       - name: Links
         key: l
         command: switch-client -T prefix \; send-keys -K C-h
+      - name: Fuzzback
+        key: f
+        command: switch-client -T prefix \; send-keys -K ?
   - separator: true
   - name: +Windows
     key: w

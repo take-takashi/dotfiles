@@ -30,7 +30,8 @@ setenv -h log_info "#[fg=green,italics] [info]#[default]#[italics]"
 set -g @wk_menu_copy \
 'Copy "c" copy-mode \
 "List buffers" "#" list-buffers \
-Links "l" "switch-client -T prefix \; send-keys -K C-h"'
+Links "l" "switch-client -T prefix \; send-keys -K C-h" \
+Fuzzback "f" "switch-client -T prefix \; send-keys -K ?"'
 
 set -g @wk_menu_layout \
 'Next "l" "nextl ; show-wk-menu #{@wk_menu_layout}" \
