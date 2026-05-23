@@ -1,4 +1,6 @@
-{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
+{{- $features := get . "features" | default dict -}}
+{{- $isPersonal := get $features "personal" | default false -}}
+{{- $isWork := get $features "work" | default false -}}
 tap "homebrew/cask-fonts"
 
 # 共通ツール
@@ -56,7 +58,7 @@ cask "notion"
 # Control your tools with a few keystrokes
 cask "raycast"
 
-{{- if eq $machineProfile "personal" }}
+{{- if $isPersonal }}
 
 # 個人PC向けアプリ
 # Package compiler and linker metadata toolkit
@@ -125,7 +127,7 @@ mas "Tampermonkey", id: 6738342400
 mas "Xcode", id: 497799835
 {{- end }}
 
-{{- if eq $machineProfile "work" }}
+{{- if $isWork }}
 
 # 会社PC向けアプリ
 {{- end }}

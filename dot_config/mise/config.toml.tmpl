@@ -1,3 +1,5 @@
+{{- $features := get . "features" | default dict -}}
+{{- $isWork := get $features "work" | default false -}}
 [tool_alias.node.versions]
 lts = "24"
 
@@ -14,3 +16,8 @@ idiomatic_version_file_enable_tools = []
 trusted_config_paths = [
     '~/github','~/fork'
 ]
+{{ if $isWork }}
+
+[env]
+_.source = "~/.proxy.sh"
+{{ end -}}

@@ -1,8 +1,10 @@
-{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
-{{ if ne $machineProfile "personal" -}}
+{{- $features := get . "features" | default dict -}}
+{{- $isPersonal := get $features "personal" | default false -}}
+{{- $isWork := get $features "work" | default false -}}
+{{ if not $isPersonal -}}
 .gitconfig-ssh
 .ssh/config
 {{ end -}}
-{{ if ne $machineProfile "work" -}}
+{{ if not $isWork -}}
 .proxy.sh
 {{ end -}}

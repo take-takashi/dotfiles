@@ -1,4 +1,6 @@
-{{- $machineProfile := get . "machine_profile" | default "minimal" -}}
+{{- $features := get . "features" | default dict -}}
+{{- $isPersonal := get $features "personal" | default false -}}
+{{- $isWork := get $features "work" | default false -}}
 # ----- begin for homebrew ----------------------------------------------------
 # homebrew向けのパス設定
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -66,11 +68,8 @@ alias abu='' # 補完用
 # ----- end for zsh-abbr -----------------------------------------------------
 
 # ----- begin for mise --------------------------------------------------------
-# MISE_ENVは、~/.config/mise/config.<MISE_ENV>.tomlを読むため。
-# よって、config.toml + config.local.toml + config.<MISE_ENV>.toml全部読む。
-export MISE_ENV="{{ $machineProfile }}"
 eval "$(/opt/homebrew/bin/mise activate zsh)"
-{{ if eq $machineProfile "work" -}}
+{{ if $isWork -}}
 proxy() {
     PROXY_SYNC_AUTO=0
     source ~/.proxy.sh
@@ -81,7 +80,7 @@ proxy() {
 # ----- end for mise ----------------------------------------------------------
 
 # ----- begin for git ---------------------------------------------------------
-{{ if eq $machineProfile "personal" -}}
+{{ if $isPersonal -}}
 # iPadなどからSSHログインしてコミットする場合、1PasswordのSSH署名を使えないため、
 # personal環境ではGit署名をOpenPGP用の ~/.gitconfig-ssh に切り替える。
 if [[ -n "$SSH_CONNECTION" ]]; then
