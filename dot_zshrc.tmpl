@@ -3,11 +3,21 @@
 {{- $isWork := get $features "work" | default false -}}
 # ----- begin for homebrew ----------------------------------------------------
 # homebrew向けのパス設定
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif command -v brew >/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+fi
 
 # Homebrewが配布する補完定義を読み込む。miseの補完はusage-cli経由でtaskも補完する。
 if [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
     fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+elif command -v brew >/dev/null 2>&1; then
+    _homebrew_site_functions="$(brew --prefix)/share/zsh/site-functions"
+    if [[ -d "$_homebrew_site_functions" ]]; then
+        fpath=($_homebrew_site_functions $fpath)
+    fi
+    unset _homebrew_site_functions
 fi
 # ----- end for homebrew ------------------------------------------------------
 
@@ -68,7 +78,9 @@ alias abu='' # 補完用
 # ----- end for zsh-abbr -----------------------------------------------------
 
 # ----- begin for mise --------------------------------------------------------
-eval "$(/opt/homebrew/bin/mise activate zsh)"
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+fi
 {{ if $isWork -}}
 proxy() {
     PROXY_SYNC_AUTO=0

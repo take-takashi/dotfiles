@@ -1,6 +1,12 @@
 {{- $features := get . "features" | default dict -}}
 {{- $isPersonal := get $features "personal" | default false -}}
 {{- $isWork := get $features "work" | default false -}}
+{{- $isContainer := get $features "container" | default false -}}
+{{ if $isContainer -}}
+Brewfile
+.config/ghostty
+enable_sudo_touchid.sh
+{{ end -}}
 {{ if not $isPersonal -}}
 .gitconfig-ssh
 .ssh/config
