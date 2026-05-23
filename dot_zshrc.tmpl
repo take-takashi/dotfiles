@@ -79,6 +79,14 @@ proxy() {
 {{ end -}}
 # ----- end for mise ----------------------------------------------------------
 
+# ----- begin for zoxide ------------------------------------------------------
+if command -v zoxide >/dev/null 2>&1; then
+    # zinit also defines `zi`; let zoxide own it for interactive jumping.
+    unalias zi 2>/dev/null || true
+    eval "$(zoxide init zsh)"
+fi
+# ----- end for zoxide --------------------------------------------------------
+
 # ----- begin for git ---------------------------------------------------------
 {{ if $isPersonal -}}
 # iPadなどからSSHログインしてコミットする場合、1PasswordのSSH署名を使えないため、
