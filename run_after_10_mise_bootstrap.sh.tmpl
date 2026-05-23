@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+if command -v mise >/dev/null 2>&1; then
+	# chezmoi applyで配置したグローバル設定を信頼し、そこに書かれたツールを入れる。
+	mise trust "$HOME/.config/mise/config.toml" --yes
+	# カレントディレクトリのmise.tomlを拾わないよう、プロジェクト外で実行する。
+	mise install -C /tmp --yes
+fi

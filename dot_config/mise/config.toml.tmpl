@@ -1,11 +1,18 @@
 {{- $features := get . "features" | default dict -}}
 {{- $isWork := get $features "work" | default false -}}
+{{- $isContainer := get $features "container" | default false -}}
 [tool_alias.node.versions]
 lts = "24"
 
 [tools]
 node = "lts"
 "npm:@openai/codex" = { version = "latest", package_manager = "npm", dependencies = ["node"] }
+{{ if $isContainer }}
+chezmoi = "latest"
+neovim = "latest"
+usage = "latest"
+zoxide = "latest"
+{{ end }}
 
 [settings]
 # 該当ツールの慣用ファイルを見ない
