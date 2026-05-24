@@ -158,6 +158,9 @@ items:
       - name: Zoom
         key: z
         command: resizep -Z
+      - name: Floax
+        key: f
+        command: switch-client -T prefix \; send-keys -K p
       - name: +Resize
         key: r
         menu:

@@ -85,6 +85,7 @@ Up "k" "selectp -U" \
 Right "l" "selectp -R" \
 "" \
 Zoom "z" "resizep -Z" \
+Floax "f" "switch-client -T prefix \; send-keys -K p" \
 "+Resize" "r" "show-wk-menu #{@wk_menu_resize}" \
 "Swap left" "H" "swapp -t \"{left-of}\"" \
 "Swap down" "J" "swapp -t \"{down-of}\"" \
