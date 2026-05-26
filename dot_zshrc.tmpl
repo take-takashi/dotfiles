@@ -1,6 +1,6 @@
 {{- $features := get . "features" | default dict -}}
 {{- $isPersonal := get $features "personal" | default false -}}
-{{- $isWork := get $features "work" | default false -}}
+{{- $hasProxy := get $features "proxy" | default false -}}
 # ----- begin for homebrew ----------------------------------------------------
 # homebrew向けのパス設定
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -81,13 +81,11 @@ alias abu='' # 補完用
 if command -v mise >/dev/null 2>&1; then
     eval "$(mise activate zsh)"
 fi
-{{ if $isWork -}}
-proxy() {
-    PROXY_SYNC_AUTO=0
-    source ~/.proxy.sh
-    unset PROXY_SYNC_AUTO
-    proxy-sync "$@"
-}
+{{ if $hasProxy -}}
+for _proxy_zsh_file in "$HOME/.proxy.local.zsh" "$HOME/.proxy.zsh"; do
+    [[ -r "$_proxy_zsh_file" ]] && source "$_proxy_zsh_file"
+done
+unset _proxy_zsh_file
 {{ end -}}
 # ----- end for mise ----------------------------------------------------------
 

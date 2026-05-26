@@ -4,3 +4,4 @@
 personal = true
 work = false
 container = false
+proxy = false
