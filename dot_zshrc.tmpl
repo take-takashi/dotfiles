@@ -81,13 +81,18 @@ alias abu='' # 補完用
 if command -v mise >/dev/null 2>&1; then
     eval "$(mise activate zsh)"
 fi
+# ----- end for mise ----------------------------------------------------------
+
+# ----- begin for proxy -------------------------------------------------------
 {{ if $hasProxy -}}
+# proxy機能を有効にした環境だけ、手動切替用の設定値と関数を読み込む。
+# ローカル設定はcreate_管理にして、プロキシURLなどの環境固有値をdotfiles本体に入れない。
 for _proxy_zsh_file in "$HOME/.proxy.local.zsh" "$HOME/.proxy.zsh"; do
     [[ -r "$_proxy_zsh_file" ]] && source "$_proxy_zsh_file"
 done
 unset _proxy_zsh_file
 {{ end -}}
-# ----- end for mise ----------------------------------------------------------
+# ----- end for proxy ---------------------------------------------------------
 
 # ----- begin for zoxide ------------------------------------------------------
 if command -v zoxide >/dev/null 2>&1; then
