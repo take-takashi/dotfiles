@@ -96,6 +96,7 @@ Break "!" break-pane \
 Mark "m" "selectp -m" \
 Unmark "M" "selectp -M" \
 Capture "C" capture-pane \
+"Clear history" "c" "clear-history \; display-message \"Cleared history for pane #P\"" \
 "Respawn pane" "R" restart-pane \
 Kill "X" "confirm -p \"Kill pane #P? (y/n)\" killp"'
 

@@ -221,6 +221,9 @@ items:
       - name: Capture
         key: C
         command: capture-pane
+      - name: Clear history
+        key: c
+        command: 'clear-history \; display-message "Cleared history for pane #P"'
       - name: Respawn pane
         key: R
         macro: restart-pane
